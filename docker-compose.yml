@@ -1,0 +1,35 @@
+services:
+  napcat:
+    image: mlikiowa/napcat-docker:latest
+    container_name: napcat
+    restart: unless-stopped
+
+    environment:
+      MODE: ws
+      WEBUI_TOKEN: "${WEBUI_TOKEN:?请在平台环境变量中设置 WEBUI_TOKEN}"
+      TZ: Asia/Shanghai
+      NAPCAT_UID: "1000"
+      NAPCAT_GID: "1000"
+
+    ports:
+      - "6099:6099"
+      # - "3001:3001"  # WS
+      - "3000:3000"
+
+    volumes:
+      - type: volume
+        source: napcat-qq
+        target: /app/.config/QQ
+      - type: volume
+        source: napcat-config
+        target: /app/napcat/config
+      - type: volume
+        source: napcat-plugins
+        target: /app/napcat/plugins
+
+    shm_size: "512mb"
+
+volumes:
+  napcat-qq:
+  napcat-config:
+  napcat-plugins:
