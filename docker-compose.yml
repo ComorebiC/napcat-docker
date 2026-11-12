@@ -1,6 +1,7 @@
 services:
   napcat:
-    image: m.daocloud.io/docker.io/mlikiowa/napcat-docker:latest
+    image: mlikiowa/napcat-docker:latest
+    pull_policy: if_not_present
     container_name: napcat
     restart: unless-stopped
 
